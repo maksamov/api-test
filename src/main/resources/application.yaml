@@ -3,7 +3,7 @@ spring:
     url: jdbc:hsqldb:file:db/addressdb
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
 
 dev-profile:
   value: false 
