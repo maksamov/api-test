@@ -7,28 +7,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import hr.keeper.eircode.address.Address;
+import hr.keeper.eircode.address.AddressIE;
 
 @RestController
 @RequestMapping("api/public/eircode/mock")
 public class PostcoderEircodeMockController {
 
 	@RequestMapping(value="/{eircode}", method = RequestMethod.GET)
-	public ResponseEntity<Address[]> getAddressByEircode(@PathVariable String eircode) {
+	public ResponseEntity<AddressIE[]> getAddressByEircode(@PathVariable String eircode) {
 	
-		Address[] addresses = new Address[1];
+		AddressIE[] addresses = new AddressIE[1];
 		
-		Address address = createMockAddress();
+		AddressIE address = createMockAddress();
 		
 		if (eircode.contentEquals(address.getEircode()))
 			addresses[0] = address;
 		
-		return new ResponseEntity<Address[]>(addresses, HttpStatus.OK);
+		return new ResponseEntity<AddressIE[]>(addresses, HttpStatus.OK);
 	}
 	
-	private Address createMockAddress() {
+	private AddressIE createMockAddress() {
 		
-		Address address = new Address();
+		AddressIE address = new AddressIE();
 		
 		address.setEircode("1234");
 				

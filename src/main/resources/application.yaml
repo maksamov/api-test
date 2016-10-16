@@ -6,4 +6,9 @@ spring:
       ddl-auto: update
 
 dev-profile:
-  value: false 
+  value: false
+  
+postcoder:
+  search_key: PCW3Y-V28MF-PHNS7-FWCVH
+  method: address
+  search_term: ?format=json 

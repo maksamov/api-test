@@ -1,4 +1,4 @@
-package hr.keeper.eircode.rest;
+package hr.keeper.eircode.controller;
 
 import java.util.Optional;
 
@@ -12,29 +12,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import hr.keeper.eircode.address.Address;
-import hr.keeper.eircode.address.AddressRepository;
+import hr.keeper.eircode.address.AddressIE;
+import hr.keeper.eircode.address.AddressIERepository;
 
 @RestController
 @RequestMapping("api/public/eircode")
 public class EircodeController {
 
 	@Autowired
-	private AddressRepository addressRepository;
+	private AddressIERepository addressRepository;
 
-	private final String SEARCH_KEY = "PCW3Y-V28MF-PHNS7-FWCVH";
-	private final String METHOD = "address";
-	private final String SEARCH_TERM = "?format=json";
+	@Value("${postcoder.search_key}")
+	private String SEARCH_KEY;
+	
+	@Value("${postcoder.method}")
+	private String METHOD;
+	
+	@Value("${postcoder.search_term}")
+	private String SEARCH_TERM;
 
 	@Value("${dev-profile.value}")
 	private boolean isDevelopment;
 
 	@RequestMapping(value = "/{eircode}", method = RequestMethod.GET)
-	public ResponseEntity<Address> getAddressByEircode(@PathVariable String eircode) {
+	public ResponseEntity<AddressIE> getAddressByEircode(@PathVariable String eircode) {
 
-		Address address;
+		AddressIE address;
 		
-		Optional<Address> maybeAddress = addressRepository.findByEircode(eircode);
+		Optional<AddressIE> maybeAddress = addressRepository.findByEircode(eircode);
 
 		if (maybeAddress.isPresent()) {
 			address = maybeAddress.get();
@@ -43,12 +48,12 @@ public class EircodeController {
 			address = queryAndSaveToDB(eircode);
 		}
 		
-		return new ResponseEntity<Address>(address, HttpStatus.OK);
+		return new ResponseEntity<AddressIE>(address, HttpStatus.OK);
 	}
 	
-	private Address queryAndSaveToDB(String eircode){
+	private AddressIE queryAndSaveToDB(String eircode){
 		
-		Address address = queryPostcoderAPI(eircode);
+		AddressIE address = queryPostcoderAPI(eircode);
 		
 		address.setEircode(eircode);
 		address = addressRepository.save(address);
@@ -56,12 +61,12 @@ public class EircodeController {
 		return address;
 	}
 
-	private Address queryPostcoderAPI(String eircode) {
+	private AddressIE queryPostcoderAPI(String eircode) {
 		
 		String uri = createUri(eircode);
 
 		RestTemplate restTemplate = new RestTemplate();
-		Address[] addresses = restTemplate.getForObject(uri, Address[].class);
+		AddressIE[] addresses = restTemplate.getForObject(uri, AddressIE[].class);
 
 		return addresses[0];
 	}

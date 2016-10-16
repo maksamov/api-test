@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter @Setter @ToString
 @NoArgsConstructor
 @Entity
-public class Address {
+public class AddressIE {
 	
 	@Id
 	@JsonIgnore
