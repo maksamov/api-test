@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:hsqldb:file:db/addressdb
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+dev-profile:
+  value: false 
