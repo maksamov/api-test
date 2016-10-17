@@ -39,7 +39,7 @@ public class PostcoderUkcodeMockController {
 		address1.setDependentlocality("Framingham Pigot");
 		address1.setPosttown("Norwich");
 		address1.setCounty("Norfolk");
-		address1.setPostcode("NR147PZ");
+		address1.setPostcode("NR14 7PZ");
 		
 		addresses[0] = address1;
 		
@@ -53,7 +53,7 @@ public class PostcoderUkcodeMockController {
 		address2.setDependentlocality("Framingham Pigot");
 		address2.setPosttown("Norwich");
 		address2.setCounty("Norfolk");
-		address2.setPostcode("NR147PZ");
+		address2.setPostcode("NR14 7PZ");
 		
 		addresses[1] = address2;
 		

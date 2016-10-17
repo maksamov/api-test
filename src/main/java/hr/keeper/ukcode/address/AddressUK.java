@@ -1,6 +1,7 @@
 package hr.keeper.ukcode.address;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -15,6 +16,8 @@ import lombok.ToString;
 @Getter @Setter @ToString
 @NoArgsConstructor
 @Entity
+@NamedQuery(name = "AddressUK.findByPostcode", 
+			query = "SELECT a FROM AddressUK a WHERE REPLACE(a.postcode,' ','') = REPLACE(?1,' ','')")
 public class AddressUK extends AbstractPersistable<Long> {
 	
 	private static final long serialVersionUID = 1L;

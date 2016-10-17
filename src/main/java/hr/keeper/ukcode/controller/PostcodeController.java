@@ -14,7 +14,6 @@ import org.springframework.web.client.RestTemplate;
 
 import hr.keeper.ukcode.address.AddressUK;
 import hr.keeper.ukcode.address.AddressUKRepository;
-import hr.keeper.util.UtilMethods;
 
 @RestController
 @RequestMapping("api/public/ukcode")
@@ -57,7 +56,6 @@ public class PostcodeController {
 		AddressUK[] addresses = queryPostcoderAPI(ukcode);
 		
 		for (AddressUK addressUK : addresses) {
-			addressUK.setPostcode(UtilMethods.removeSpaces(addressUK.getPostcode()));
 			addressRepository.save(addressUK);
 		}
 		
